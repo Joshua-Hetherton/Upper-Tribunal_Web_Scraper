@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upper-Tribunal Web Scraper</title>
+    <link rel="stylesheet" href="../styles/style.css">
+</head>
+
+
+<body>
+    <h1 class="align-center">Upper-Tribunal Web Scraper</h1>
+    <!--Stuff to use
+    https://www.w3schools.com/html/html_attributes.asp title attribute
+     -->
+
+    <div class="container">
+    <div class="sidebar">
+        <p class="align-center">How to use:</p>
+    </div>
+    <div class="main">
+        <p class="align-center">Search</p>
+        <!-- Search form goes here, mostly dropdown boxes:
+        fieldnames = [
+        "title", 
+        "neutral_citation", 
+        "category", 
+        "subcategory",
+        "decision_date", 
+        "html_url", 
+        "pdf_url"]-->
+        
+        <select id="Title">
+            <option value="" disabled selected><br>Select Title</option>
+        </select>
+        <select id="Neutral_citation">
+            <option value="" disabled selected><br>Select Neutral Citation</option>
+        </select>
+        <select id="Category">
+            <option value="" disabled selected>Select Category</option>
+        </select>
+        <select id="Subcategory">
+            <option value="" disabled selected>Select Subcategory</option>
+        </select>
+        <select id="Decision_date">
+            <option value="" disabled selected>Select Decision Date</option>
+        </select>
+        <select id="Html_url">
+            <option value="" disabled selected>Select HTML URL</option>
+        </select>
+        <select id="Pdf_url">
+            <option value="" disabled selected>Select PDF URL</option>
+        </select>
+        
+    </div>
+    <div class="database">
+        <p class="align-center">Database content goes here.</p>
+    </div>
+  </div>
+
+
+    
+</body>
+</html>

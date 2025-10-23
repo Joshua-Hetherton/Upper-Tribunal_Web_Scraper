@@ -21,19 +21,13 @@ conn.commit()
 #Getting data from a JSON file
 """
 fieldnames = [
-            'title',
-            'neutral_citation', 
-            'case_number',
-            'tribunal',
-            'published_date',
-            'updated_date',
-            'document_uri',
-            'content_hash',
-            'summary',
-            'html_link',
-            'xml_link', 
-            'pdf_link'
-        ]
+"title", 
+"neutral_citation", 
+"category", 
+"subcategory",
+"decision_date", 
+"html_url", 
+"pdf_url"]
 """
 with open('uk_caselaw_ukut_lc.json', 'r', encoding="utf-8") as f:
     data = json.load(f)
