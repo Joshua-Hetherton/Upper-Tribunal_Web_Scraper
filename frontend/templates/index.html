@@ -19,7 +19,7 @@
         <p class="align-center">How to use:</p>
     </div>
     <div class="main">
-        <p class="align-center">Search</p>
+        <p class="align-left">Search</p>
         <!-- Search form goes here, mostly dropdown boxes:
         fieldnames = [
         "title", 
@@ -30,28 +30,61 @@
         "html_url", 
         "pdf_url"]-->
         
-        <select id="Title">
-            <option value="" disabled selected><br>Select Title</option>
-        </select>
-        <select id="Neutral_citation">
-            <option value="" disabled selected><br>Select Neutral Citation</option>
-        </select>
-        <select id="Category">
-            <option value="" disabled selected>Select Category</option>
-        </select>
-        <select id="Subcategory">
-            <option value="" disabled selected>Select Subcategory</option>
-        </select>
-        <select id="Decision_date">
-            <option value="" disabled selected>Select Decision Date</option>
-        </select>
-        <select id="Html_url">
-            <option value="" disabled selected>Select HTML URL</option>
-        </select>
-        <select id="Pdf_url">
-            <option value="" disabled selected>Select PDF URL</option>
-        </select>
-        
+        <div class="form-row">
+            <label for="category">Category:</label>
+            <select id="category">
+                <option value="" disabled selected>Select Category</option>
+                <option value="1">1 COMPENSATION</option>
+                <option value="2">2 RATING</option>
+                <option value="3">3 RESTRICTIVE COVENANTS</option>
+                <option value="4">4 LEASEHOLD ENFRANCHISEMENT</option>
+                <option value="5">5 LANDLORD AND TENANT</option>
+                <option value="6">6 BLIGHT NOTICE</option>
+                <option value="7">7 TAX</option>
+                <option value="8">8 EASEMENT</option>
+                <option value="9">9 ARBITRATION</option>
+                <option value="10">10 COSTS</option>
+                <option value="16">16 HOUSING</option>
+                <option value="19">19 PARK HOMES</option>
+                <option value="25">25 LAND REGISTRATION</option>
+                <option value="26">26 ELECTRONIC COMMUNICATIONS CODE</option>
+                <option value="27">27 INTERIM RIGHTS</option>
+                <option value="28">28 ELECTRICITY CHARGES</option>
+                <option value="29">29 BUILDING SAFETY</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <label for="subcategory">Subcategory:</label>
+            <select id="subcategory">
+                <option value="" disabled selected>Select Subcategory</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <label for="title">Title:</label>
+            <input id="title" name="title" type="text" placeholder="Title">
+        </div>
+
+        <div class="form-row">
+            <label for="neutral_citation">Neutral Citation:</label>
+            <input id="neutral_citation" name="neutral_citation" type="text" placeholder="NCN">
+        </div>
+
+        <div class="form-row">
+            <label for="from_date">From Date:</label>
+            <select id="from_date">
+                <option value="" disabled selected>Select From Date</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+            <label for="to_date">To Date:</label>
+            <select id="to_date">
+                <option value="" disabled selected>Select To Date</option>
+            </select>
+        </div>
+
     </div>
     <div class="database">
         <p class="align-center">Database content goes here.</p>

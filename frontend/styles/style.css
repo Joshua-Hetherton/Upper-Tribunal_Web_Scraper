@@ -15,6 +15,25 @@ html, body {
 .align-left {
     text-align: left;
 }
+/* New styles for form layout */
+.form-row {
+  display: flex;          /* put label and select side by side */
+  align-items: center;    /* vertically align them */
+  margin-bottom: 1px;    /* space between rows */
+}
+
+.form-row label {
+  width: 150px;           /* fixed width for labels */
+  margin-right: 10px;     /* spacing before the select */
+  text-align: right;      /* align text to the right edge */
+}
+
+.form-row select {
+  flex: 1;                /* select expands to fill remaining space */
+  padding: 2px;
+}
+
+
 select {
   display: block;     /* each one takes full line */
   margin: 10px 0;     /* add vertical spacing */
