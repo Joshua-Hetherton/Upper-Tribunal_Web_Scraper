@@ -81,6 +81,19 @@
                 <input id="to_date" name="to_date" type="date">
             </div>
 
+            <script>
+                const fromDate = document.getElementById("from_date");
+                const toDate = document.getElementById("to_date");
+
+                fromDate.addEventListener("change", () => {
+                toDate.min = fromDate.value;   //Setting earliest allowed To Date
+                if (toDate.value && toDate.value < fromDate.value) {
+                    toDate.value = fromDate.value; // auto-correct if already invalid
+                }
+                });
+            </script>
+
+
 
         </div>
         <div class="database">

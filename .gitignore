@@ -1,2 +1,13 @@
-main.py
+# Python cache
 __pycache__/
+*.pyc
+##other
+main.py
+# Virtual environment
+venv/
+.env
+# SQLite database
+cases.db
+# OS generated files
+.DS_Store
+Thumbs.db
