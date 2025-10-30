@@ -1,97 +1,95 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Upper-Tribunal Web Scraper</title>
-    <link rel="stylesheet" href="../styles/style.css">
-</head>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Upper-Tribunal Web Scraper</title>
+        <link rel="stylesheet" href="../styles/style.css">
+    </head>
 
 
-<body>
-    <h1 class="align-center">Upper-Tribunal Web Scraper</h1>
-    <!--Stuff to use
-    https://www.w3schools.com/html/html_attributes.asp title attribute
-     -->
+    <body>
+        <h1 class="align-center">Upper-Tribunal Web Scraper</h1>
+        <!--Stuff to use
+        https://www.w3schools.com/html/html_attributes.asp title attribute
+        -->
+          <div class="how-to-use">
+    <p class="align-center">How to use:</p>
+  </div>
 
-    <div class="container">
-    <div class="sidebar">
-        <p class="align-center">How to use:</p>
-    </div>
-    <div class="main">
-        <p class="align-left">Search</p>
-        <!-- Search form goes here, mostly dropdown boxes:
-        fieldnames = [
-        "title", 
-        "neutral_citation", 
-        "category", 
-        "subcategory",
-        "decision_date", 
-        "html_url", 
-        "pdf_url"]-->
-        
-        <div class="form-row">
-            <label for="category">Category:</label>
-            <select id="category">
-                <option value="" disabled selected>Select Category</option>
-                <option value="1">1 COMPENSATION</option>
-                <option value="2">2 RATING</option>
-                <option value="3">3 RESTRICTIVE COVENANTS</option>
-                <option value="4">4 LEASEHOLD ENFRANCHISEMENT</option>
-                <option value="5">5 LANDLORD AND TENANT</option>
-                <option value="6">6 BLIGHT NOTICE</option>
-                <option value="7">7 TAX</option>
-                <option value="8">8 EASEMENT</option>
-                <option value="9">9 ARBITRATION</option>
-                <option value="10">10 COSTS</option>
-                <option value="16">16 HOUSING</option>
-                <option value="19">19 PARK HOMES</option>
-                <option value="25">25 LAND REGISTRATION</option>
-                <option value="26">26 ELECTRONIC COMMUNICATIONS CODE</option>
-                <option value="27">27 INTERIM RIGHTS</option>
-                <option value="28">28 ELECTRICITY CHARGES</option>
-                <option value="29">29 BUILDING SAFETY</option>
-            </select>
-        </div>
+        <div class="container">
+        <div class="main">
+            <p class="align-left">Search</p>
+            <!-- Search form goes here, mostly dropdown boxes:
+            fieldnames = [
+            "title", 
+            "neutral_citation", 
+            "category", 
+            "subcategory",
+            "decision_date", 
+            "html_url", 
+            "pdf_url"]-->
+            
+            <div class="form-row">
+                <label for="category">Category:</label>
+                <select id="category">
+                    <option value="" disabled selected>Select Category</option>
+                    <option value="1">1 COMPENSATION</option>
+                    <option value="2">2 RATING</option>
+                    <option value="3">3 RESTRICTIVE COVENANTS</option>
+                    <option value="4">4 LEASEHOLD ENFRANCHISEMENT</option>
+                    <option value="5">5 LANDLORD AND TENANT</option>
+                    <option value="6">6 BLIGHT NOTICE</option>
+                    <option value="7">7 TAX</option>
+                    <option value="8">8 EASEMENT</option>
+                    <option value="9">9 ARBITRATION</option>
+                    <option value="10">10 COSTS</option>
+                    <option value="16">16 HOUSING</option>
+                    <option value="19">19 PARK HOMES</option>
+                    <option value="25">25 LAND REGISTRATION</option>
+                    <option value="26">26 ELECTRONIC COMMUNICATIONS CODE</option>
+                    <option value="27">27 INTERIM RIGHTS</option>
+                    <option value="28">28 ELECTRICITY CHARGES</option>
+                    <option value="29">29 BUILDING SAFETY</option>
+                </select>
+            </div>
 
-        <div class="form-row">
+            <div class="form-row">
             <label for="subcategory">Subcategory:</label>
             <select id="subcategory">
                 <option value="" disabled selected>Select Subcategory</option>
             </select>
-        </div>
+            </div>
 
-        <div class="form-row">
-            <label for="title">Title:</label>
-            <input id="title" name="title" type="text" placeholder="Title">
-        </div>
+            <div class="form-row">
+                <label for="title">Title:</label>
+                <input id="title" name="title" type="text" placeholder="Title">
+            </div>
 
-        <div class="form-row">
-            <label for="neutral_citation">Neutral Citation:</label>
-            <input id="neutral_citation" name="neutral_citation" type="text" placeholder="NCN">
-        </div>
+            <div class="form-row">
+                <label for="neutral_citation">Neutral Citation:</label>
+                <input id="neutral_citation" name="neutral_citation" type="text" placeholder="NCN">
+            </div>
 
-        <div class="form-row">
-            <label for="from_date">From Date:</label>
-            <select id="from_date">
-                <option value="" disabled selected>Select From Date</option>
-            </select>
-        </div>
+            <div class="form-row">
+                <label for="from_date">From Date:</label>
+                <input id="from_date" name="from_date" type="date">
+            </div>
 
-        <div class="form-row">
-            <label for="to_date">To Date:</label>
-            <select id="to_date">
-                <option value="" disabled selected>Select To Date</option>
-            </select>
-        </div>
+            <div class="form-row">
+                <label for="to_date">To Date:</label>
+                <input id="to_date" name="to_date" type="date">
+            </div>
 
+
+        </div>
+        <div class="database">
+            <p class="align-center">Database content goes here.</p>
+        </div>
     </div>
-    <div class="database">
-        <p class="align-center">Database content goes here.</p>
-    </div>
-  </div>
 
 
-    
-</body>
-</html>
+<script src="../../backend/scripts/dependent_dropdown.js"></script>
+  
+    </body>
+    </html>

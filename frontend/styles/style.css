@@ -19,13 +19,13 @@ html, body {
 .form-row {
   display: flex;          /* put label and select side by side */
   align-items: center;    /* vertically align them */
-  margin-bottom: 1px;    /* space between rows */
+  margin-bottom: 2px;    /* space between rows */
 }
 
 .form-row label {
   width: 150px;           /* fixed width for labels */
   margin-right: 10px;     /* spacing before the select */
-  text-align: right;      /* align text to the right edge */
+  text-align: left;      /* align text to the left edge */
 }
 
 .form-row select {
@@ -34,11 +34,19 @@ html, body {
 }
 
 
-select {
-  display: block;     /* each one takes full line */
-  margin: 10px 0;     /* add vertical spacing */
-  width: 100%;        /* optional: stretch to container width */
+.form-row select,
+.form-row input[type="text"],
+.form-row input[type="date"] {
+  flex: 0 0 250px;       /* fixed width, no stretching */
+  width: 250px;          /* consistent width */
+  box-sizing: border-box;/* include padding/border in width */
+  padding: 2px;          /* consistent padding */
+  font-size: 14px;       /* unify font size */
+  line-height: 1.3;      /* unify line height */
 }
+
+
+
 
 .container {
   display: flex;
@@ -48,12 +56,14 @@ select {
   min-height: 100vh;      /* fill screen if short, grow if tall */
 }
 
-.sidebar {
-    width: 150px;
-    background-color: #ff0000;
-    padding: 15px;
-    border-radius: 5px;
+.how-to-use {
+  background-color: #ff0000;   /* same red as your sidebar */
+  color: rgb(0, 0, 0);
+  padding: 15px;
+  border-radius: 5px;
+  margin: 0 20px 20px 20px;   /* spacing around it */
 }
+
 
 .main, .database {
     flex: 1;
