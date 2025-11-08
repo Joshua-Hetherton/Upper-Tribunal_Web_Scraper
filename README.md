@@ -66,7 +66,7 @@ Data responsibility
 
 License
 -------
-See the LICENSE file in this repo for license details: LICENSE
+See the LICENSE file in this repo for license details: `LICENSE`
 
 Acknowledgements
 ----------------
