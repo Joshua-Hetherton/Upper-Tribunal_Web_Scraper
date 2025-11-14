@@ -34,23 +34,23 @@
                 <label for="category">Category:</label>
                 <select id="category">
                     <option value="" disabled selected>Select Category</option>
-                    <option value="1">1 COMPENSATION</option>
-                    <option value="2">2 RATING</option>
-                    <option value="3">3 RESTRICTIVE COVENANTS</option>
-                    <option value="4">4 LEASEHOLD ENFRANCHISEMENT</option>
-                    <option value="5">5 LANDLORD AND TENANT</option>
-                    <option value="6">6 BLIGHT NOTICE</option>
-                    <option value="7">7 TAX</option>
-                    <option value="8">8 EASEMENT</option>
-                    <option value="9">9 ARBITRATION</option>
-                    <option value="10">10 COSTS</option>
-                    <option value="16">16 HOUSING</option>
-                    <option value="19">19 PARK HOMES</option>
-                    <option value="25">25 LAND REGISTRATION</option>
-                    <option value="26">26 ELECTRONIC COMMUNICATIONS CODE</option>
-                    <option value="27">27 INTERIM RIGHTS</option>
-                    <option value="28">28 ELECTRICITY CHARGES</option>
-                    <option value="29">29 BUILDING SAFETY</option>
+                    <option value="COMPENSATION">1 COMPENSATION</option>
+                    <option value="RATING">2 RATING</option>
+                    <option value="RESTRICTIVE COVENANTS">3 RESTRICTIVE COVENANTS</option>
+                    <option value="LEASEHOLD ENFRANCHISEMENT">4 LEASEHOLD ENFRANCHISEMENT</option>
+                    <option value="LANDLORD AND TENANT">5 LANDLORD AND TENANT</option>
+                    <option value="BLIGHT NOTICE">6 BLIGHT NOTICE</option>
+                    <option value="TAX">7 TAX</option>
+                    <option value="EASEMENT">8 EASEMENT</option>
+                    <option value="ARBITRATION">9 ARBITRATION</option>
+                    <option value="COSTS">10 COSTS</option>
+                    <option value="HOUSING">16 HOUSING</option>
+                    <option value="PARK HOMES">19 PARK HOMES</option>
+                    <option value="LAND REGISTRATION">25 LAND REGISTRATION</option>
+                    <option value="ELECTRONIC COMMUNICATIONS CODE">26 ELECTRONIC COMMUNICATIONS CODE</option>
+                    <option value="INTERIM RIGHTS">27 INTERIM RIGHTS</option>
+                    <option value="ELECTRICITY CHARGES">28 ELECTRICITY CHARGES</option>
+                    <option value="BUILDING SAFETY">29 BUILDING SAFETY</option>
                 </select>
             </div>
 
@@ -80,7 +80,7 @@
                 <label for="to_date">To Date:</label>
                 <input id="to_date" name="to_date" type="date">
             </div>
-
+            
             <script>
                 const fromDate = document.getElementById("from_date");
                 const toDate = document.getElementById("to_date");
@@ -92,6 +92,10 @@
                 }
                 });
             </script>
+            
+             <div class="form-row">
+                <button id="searchBtn" onclick="searchCases()">Search</button>
+            </div>
 
 
 
@@ -103,6 +107,63 @@
 
 
 <script src="../../backend/scripts/dependent_dropdown.js"></script>
+<script>
+async function searchCases() {
+  const category = document.getElementById("category").value;
+  const subcategory = document.getElementById("subcategory").value;
+  const title = document.getElementById("title").value.trim();
+  const neutralCitation = document.getElementById("neutral_citation").value.trim();
+  const fromDate = document.getElementById("from_date").value;
+  const toDate = document.getElementById("to_date").value;
+  const resultsDiv = document.querySelector(".database");
+
+  resultsDiv.innerHTML = "<p>Loading results...</p>";
+
+  const params = new URLSearchParams({
+    category,
+    subcategory,
+    title,
+    neutral_citation: neutralCitation,
+    from_date: fromDate,
+    to_date: toDate
+  });
+
+  try {
+    const response = await fetch(`http://127.0.0.1:5000/cases?${params.toString()}`);
+    const data = await response.json();
+
+    if (data.length === 0) {
+      resultsDiv.innerHTML = "<p>No results found.</p>";
+      return;
+    }
+
+    // Clear results and show cases
+    resultsDiv.innerHTML = "";
+    data.forEach(c => {
+      const div = document.createElement("div");
+      div.classList.add("case");
+      div.innerHTML = `
+        <h3>${c.title}</h3>
+        <p><strong>Citation:</strong> ${c.neutral_citation || "N/A"}</p>
+        <p><strong>Date:</strong> ${c.decision_date || "N/A"}</p>
+        <p><strong>Category:</strong> ${c.category || "N/A"} – ${c.subcategory || ""}</p>
+        <p><strong>Subject:</strong> ${c.subject || "No summary provided"}</p>
+        <p>
+          ${c.html_url ? `<a href="${c.html_url}" target="_blank">View HTML</a>` : ""}
+          ${c.pdf_url ? ` | <a href="${c.pdf_url}" target="_blank">Download PDF</a>` : ""}
+        </p>
+        <hr>
+      `;
+      resultsDiv.appendChild(div);
+    });
+
+  } catch (error) {
+    console.error(error);
+    resultsDiv.innerHTML = "<p>Error loading cases. Check console.</p>";
+  }
+}
+</script>
+
   
     </body>
     </html>
