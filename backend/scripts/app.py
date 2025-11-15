@@ -26,33 +26,38 @@ def get_cases():
     conn = get_db_connection()
     query = """
     SELECT title,
-        neutral_citation,
-        decision_date,
-        category,
-        subcategory,
-        html_link AS html_url,
-        pdf_link AS pdf_url
+           neutral_citation,
+           decision_date,
+           category,
+           subcategory,
+           html_link AS html_url,
+           pdf_link AS pdf_url
     FROM ukut_cases
     WHERE 1=1
     """
-
     params = []
 
     if category:
         query += " AND category LIKE ?"
         params.append(f"%{category}%")
-    if subcategory:
+
+    # Only filter if subcategory is not ALL/empty
+    if subcategory and subcategory.upper() != "ALL":
         query += " AND subcategory LIKE ?"
         params.append(f"%{subcategory}%")
+
     if title:
         query += " AND title LIKE ?"
         params.append(f"%{title}%")
+
     if neutral_citation:
         query += " AND neutral_citation LIKE ?"
         params.append(f"%{neutral_citation}%")
+
     if from_date:
         query += " AND decision_date >= ?"
         params.append(from_date)
+
     if to_date:
         query += " AND decision_date <= ?"
         params.append(to_date)
@@ -63,6 +68,7 @@ def get_cases():
     conn.close()
 
     return jsonify([dict(row) for row in data])
+
 
 
 if __name__ == '__main__':

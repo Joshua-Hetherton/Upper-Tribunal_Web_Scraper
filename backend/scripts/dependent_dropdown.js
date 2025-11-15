@@ -111,6 +111,14 @@ document.addEventListener('DOMContentLoaded', function() {
         // Clear existing options
         subcategorySelect.innerHTML = '';
 
+        // Always add "All Subcategories" option at the top
+        const allOption = document.createElement('option');
+        allOption.value = "ALL";
+        allOption.textContent = "All Subcategories";
+        allOption.selected = true;
+        subcategorySelect.appendChild(allOption);
+
+
         // Add new options
         options.forEach(function(sub) {
             const option = document.createElement('option');
