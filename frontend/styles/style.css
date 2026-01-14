@@ -3,7 +3,7 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background-color: #357944;
+    background-color: #232A45;
   
 }
 .align-center {
@@ -23,7 +23,7 @@ html, body {
 }
 
 .form-row label {
-  width: 150px;           /* fixed width for labels */
+  width: 120px;           /* fixed width for labels */
   margin-right: 10px;     /* spacing before the select */
   text-align: left;      /* align text to the left edge */
 }
@@ -57,8 +57,8 @@ html, body {
 }
 
 .how-to-use {
-  background-color: #ff0000;   /* same red as your sidebar */
-  color: rgb(0, 0, 0);
+  background-color: #2A2F4A;   /* same red as your sidebar */
+  color: #e9e7e7;
   padding: 15px;
   border-radius: 5px;
   margin: 0 20px 20px 20px;   /* spacing around it */
@@ -71,8 +71,8 @@ html, body {
     border-radius: 5px;
 }
     
-.main { background: #1616a9; }
-.database { background: #07ae0d; }
+.main { background: #2A2F4A; color:#e9e7e7 }
+.database { background: #2A2F4A; color: #e9e7e7 }
 
 .database {
   font-size: 13px;       /* shrink overall text */
