@@ -1,37 +1,356 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upper-Tribunal Web Scraper</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Upper-Tribunal Web Scraper</title>
-        <link rel="stylesheet" href="../styles/style.css">
-    </head>
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
 
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
 
-    <body>
-        <h1 class="align-center">Upper-Tribunal Web Scraper</h1>
-        <!--Stuff to use
-        https://www.w3schools.com/html/html_attributes.asp title attribute
-        -->
-          <div class="how-to-use">
-    <p class="align-center">Select from the dropdown menus available to search for case laws. By default, It will include all subcatergories, but you can refine the search by selecting specific ones. Please see the linked Github page at the bottom to report any issues, or email "email"</p>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(-45deg, #0f1419, #1a2332, #0d1b2a, #1b263b);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            color: #e9e7e7;
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(91, 143, 212, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+            font-weight: 800;
+            letter-spacing: -1px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            animation: fadeIn 1s ease;
+        }
+
+        .how-to-use {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 25px 30px;
+            border-radius: 16px;
+            margin: 0 auto 40px;
+            max-width: 1200px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 1.2s ease;
+        }
+
+        .how-to-use p {
+            line-height: 1.7;
+            color: #cbd5e1;
+            font-size: 1.05rem;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 420px 1fr;
+            gap: 30px;
+            max-width: 1600px;
+            margin: 0 auto;
+            animation: fadeIn 1.4s ease;
+        }
+
+        .main {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #60a5fa, #a78bfa, transparent);
+        }
+
+        .main > p {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #60a5fa;
+        }
+
+        .form-row {
+            margin-bottom: 20px;
+        }
+
+        .form-row label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #e2e8f0;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.85rem;
+        }
+
+        .form-row select,
+        .form-row input[type="text"],
+        .form-row input[type="date"] {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1.5px solid rgba(148, 163, 184, 0.2);
+            border-radius: 12px;
+            color: #f1f5f9;
+            font-size: 1rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .form-row select:focus,
+        .form-row input:focus {
+            outline: none;
+            border-color: #60a5fa;
+            background: rgba(15, 23, 42, 0.8);
+            box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.1),
+                        0 4px 12px rgba(96, 165, 250, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .form-row select:hover,
+        .form-row input:hover {
+            border-color: rgba(148, 163, 184, 0.4);
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.6);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .database {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-height: 600px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .database::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ec4899, #f59e0b, transparent);
+        }
+
+        .database > p {
+            text-align: center;
+            color: #94a3b8;
+            padding: 60px 20px;
+            font-size: 1.1rem;
+        }
+
+        .case {
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .case::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .case:hover {
+            border-color: rgba(96, 165, 250, 0.4);
+            box-shadow: 0 8px 32px rgba(96, 165, 250, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .case:hover::before {
+            opacity: 1;
+        }
+
+        .case h3 {
+            color: #fff;
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .case p {
+            margin: 10px 0;
+            line-height: 1.6;
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+
+        .case strong {
+            color: #60a5fa;
+            font-weight: 600;
+        }
+
+        .case a {
+            color: #60a5fa;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .case a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #60a5fa;
+            transition: width 0.3s;
+        }
+
+        .case a:hover {
+            color: #93c5fd;
+        }
+
+        .case a:hover::after {
+            width: 100%;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Upper-Tribunal Web Scraper</h1>
+    <div class="subtitle">Advanced Case Law Search System</div>
+    
+    <div class="how-to-use">
+        <p>Select from the dropdown menus available to search for case laws. By default, it will include all subcategories, but you can refine the search by selecting specific ones. Please see the linked Github page at the bottom to report any issues, or email "email"</p>
     </div>
 
-        <div class="container">
+    <div class="container">
         <div class="main">
-            <p class="align-left">Search</p>
-            <!-- Search form goes here, mostly dropdown boxes:
-            fieldnames = [
-            "title", 
-            "neutral_citation", 
-            "category", 
-            "subcategory",
-            "decision_date", 
-            "html_url", 
-            "pdf_url"]-->
+            <p>Search Parameters</p>
             
             <div class="form-row">
-                <label for="category">Category:</label>
+                <label for="category">Category</label>
                 <select id="category">
                     <option value="" disabled selected>Select Category</option>
                     <option value="COMPENSATION">1 COMPENSATION</option>
@@ -55,56 +374,105 @@
             </div>
 
             <div class="form-row">
-            <label for="subcategory">Subcategory:</label>
-            <select id="subcategory">
-                <option value="" disabled selected>Select Subcategory</option>
-            </select>
+                <label for="subcategory">Subcategory</label>
+                <select id="subcategory">
+                    <option value="" disabled selected>Select Subcategory</option>
+                </select>
             </div>
 
             <div class="form-row">
-                <label for="title">Title:</label>
-                <input id="title" name="title" type="text" placeholder="Title">
+                <label for="title">Title</label>
+                <input id="title" name="title" type="text" placeholder="Enter case title">
             </div>
 
             <div class="form-row">
-                <label for="neutral_citation">Neutral Citation:</label>
-                <input id="neutral_citation" name="neutral_citation" type="text" placeholder="NCN">
+                <label for="neutral_citation">Neutral Citation</label>
+                <input id="neutral_citation" name="neutral_citation" type="text" placeholder="Enter NCN">
             </div>
 
             <div class="form-row">
-                <label for="from_date">From Date:</label>
+                <label for="from_date">From Date</label>
                 <input id="from_date" name="from_date" type="date">
             </div>
 
             <div class="form-row">
-                <label for="to_date">To Date:</label>
+                <label for="to_date">To Date</label>
                 <input id="to_date" name="to_date" type="date">
             </div>
             
-            <script>
-                const fromDate = document.getElementById("from_date");
-                const toDate = document.getElementById("to_date");
-
-                fromDate.addEventListener("change", () => {
-                toDate.min = fromDate.value;   //Setting earliest allowed To Date
-                if (toDate.value && toDate.value < fromDate.value) {
-                    toDate.value = fromDate.value; // auto-correct if already invalid
-                }
-                });
-            </script>
-            
-             <div class="form-row">
-                <button id="searchBtn" onclick="searchCases()">Search</button>
+            <div class="form-row">
+                <button id="searchBtn" onclick="searchCases()">Search Cases</button>
             </div>
-
-
-
         </div>
+
         <div class="database">
-            <p class="align-center">Database content goes here.</p>
+            <p>Use the search form to find relevant case laws</p>
         </div>
     </div>
 
+    <script>
+        const fromDate = document.getElementById("from_date");
+        const toDate = document.getElementById("to_date");
+
+        fromDate.addEventListener("change", () => {
+            toDate.min = fromDate.value;
+            if (toDate.value && toDate.value < fromDate.value) {
+                toDate.value = fromDate.value;
+            }
+        });
+
+        async function searchCases() {
+            const category = document.getElementById("category").value;
+            const subcategory = document.getElementById("subcategory").value;
+            const title = document.getElementById("title").value.trim();
+            const neutralCitation = document.getElementById("neutral_citation").value.trim();
+            const fromDate = document.getElementById("from_date").value;
+            const toDate = document.getElementById("to_date").value;
+            const resultsDiv = document.querySelector(".database");
+
+            resultsDiv.innerHTML = "<p>Loading results...</p>";
+
+            const params = new URLSearchParams({
+                category,
+                subcategory,
+                title,
+                neutral_citation: neutralCitation,
+                from_date: fromDate,
+                to_date: toDate
+            });
+
+            try {
+                const response = await fetch(`http://127.0.0.1:5000/cases?${params.toString()}`);
+                const data = await response.json();
+
+                if (data.length === 0) {
+                    resultsDiv.innerHTML = "<p>No results found. Try adjusting your search criteria.</p>";
+                    return;
+                }
+
+                resultsDiv.innerHTML = "";
+                data.forEach(c => {
+                    const div = document.createElement("div");
+                    div.classList.add("case");
+                    div.innerHTML = `
+                        <h3>${c.title}</h3>
+                        <p><strong>Citation:</strong> ${c.neutral_citation || "N/A"}</p>
+                        <p><strong>Date:</strong> ${c.decision_date || "N/A"}</p>
+                        <p><strong>Category:</strong> ${c.category || "N/A"} – ${c.subcategory || ""}</p>
+                        <p><strong>Subject:</strong> ${c.subject || "No summary provided"}</p>
+                        <p>
+                            ${c.html_url ? `<a href="${c.html_url}" target="_blank">View HTML</a>` : ""}
+                            ${c.pdf_url ? ` | <a href="${c.pdf_url}" target="_blank">Download PDF</a>` : ""}
+                        </p>
+                    `;
+                    resultsDiv.appendChild(div);
+                });
+            } catch (error) {
+                console.error(error);
+                resultsDiv.innerHTML = "<p>Error loading cases. Please check your connection and try again.</p>";
+            }
+        }
+    </script>
 
 <script src="../../backend/scripts/dependent_dropdown.js"></script>
 <script>
@@ -163,7 +531,5 @@ async function searchCases() {
   }
 }
 </script>
-
-  
-    </body>
-    </html>
+</body>
+</html>
